@@ -1,0 +1,137 @@
+aside{
+    width: 300px;
+    height: 100vh;
+    background-color: rgb(34, 23, 56);
+    box-shadow: 3px 0px 5px rgba(15, 48, 138, 0.775);
+    position: fixed;
+    transition: .2s ease-in-out;
+}
+.aside.close{
+    width: 60px;
+    overflow: hidden;
+}
+#toggler{
+    position: absolute;
+    left: 10px;
+}
+#toggler i{
+    font-size: 1.5rem;
+    color: white;
+    margin: 20px 20px;
+    cursor: pointer;
+}
+.aside.close #toggler{
+    left: 5px;
+}
+.aside.close #toggler i{
+    margin: 20px 5px;
+}
+.user{
+    left: 90px;
+    top: 20px;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(205, 205, 205);
+}
+.aside.close .user{
+    width: 25px;
+    height: 25px;
+    left: 10px;
+    margin-top: 60px;
+}
+.user i{
+    position: absolute;
+    font-size: 4rem;
+    color: rgb(80, 79, 79);
+}
+.aside.close .user i{
+    font-size: 1.5rem;
+}
+.name{
+    font-size: 18px;
+    text-align: center;
+    margin-top: 25px;
+    color: rgb(92, 173, 235);
+}
+.side-menu{
+    margin-top: 50px;
+}
+.side-menu .menu-group{
+    padding: 8px 30px;
+    display: flex;
+    align-items: center;
+    margin: 7px 0 7px 5px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    height: 50px;
+}
+.aside.close .side-menu .menu-group{
+    padding: 20px 10px;
+    margin: 0 0;
+}
+.side-menu .menu-group i{
+    font-size: 1.5rem;
+    color: white;
+}
+.aside.close .side-menu .menu-group i{
+    font-size: 1.8rem;
+    margin-right: 20px;
+
+}
+.side-menu .menu-group h2 a{
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    margin: 0 15px;
+}
+.menu-group:hover{
+    background-color: rgba(85, 170, 236, 0.13);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+}
+.menu-group:hover i{
+    color: rgb(85, 170, 236);
+}
+.menu-group:hover h2 a{
+    color: rgb(85, 170, 236);
+}
+
+@media screen and (max-width: 576px){
+    .aside{
+        width: 200px;
+    }
+    .user{
+        width: 50px;
+        height: 50px;
+        left: 70px;
+        margin-top: 30px;
+    }
+    .user i{
+        font-size: 2.2rem;
+    }
+    .side-menu .menu-group{
+        padding: 20px 10px;
+        margin: 0 0;
+    }
+    .side-menu .menu-group i{
+        font-size: 1.2rem;
+        margin-right: 5px;
+    
+    }
+    .side-menu .menu-group h2{
+
+        margin-top: -15px;
+    }
+    .side-menu .menu-group h2 a{
+        font-size: 10px;
+    }
+    .name{
+        font-size: 14px;
+    }
+}

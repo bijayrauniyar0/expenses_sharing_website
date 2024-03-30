@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    font-family: "Montserrat", sans-serif;
+    background-image: url(../images/bg.jpg);
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+/* form */
+#form{
+    border: 2px solid black;
+    width: 450px;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.284);
+    backdrop-filter: blur(10px);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    backdrop-filter: blur(3px);
+    transform: translate(-50%,-50%);
+    border-radius: 20px;
+}
+#form h2{
+    text-align: center;
+    color: rgb(0, 0, 0);
+    padding: 8px 0;
+    font-size: 2rem;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 20px;
+}
+input{
+    width: 100%;
+    border-radius: 5px;
+    padding: 12px 17px;
+    border: 2px solid green;
+    margin: 8px 0;
+}
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+button{
+    border-radius: 5px;
+    padding: 12px 17px;
+    border: none;
+    margin: 0 0 20px 0;
+    background-color: rgb(16, 140, 142);
+    color: white;
+    font-size: 18px;
+}
+button:hover{
+    background-color: rgb(9, 93, 94);
+    color: white;
+}
+::placeholder{
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+}
+.form-details{
+    display: flex;
+    align-items: center;
+    margin: 10px 20px;
+
+}
+i{
+    font-size: 2rem;
+    margin: 0 12px 0 0 ;
+}
+p{
+    font-size: 18px;
+    margin-left: 50px;
+    font-weight: 600;
+    margin: 4px;
+}
+p a{
+    color: rgb(5, 10, 111);
+    text-decoration: none;
+    font-weight: 800;
+}
+p a:hover{
+    color: rgb(13, 13, 118);
+    text-decoration: underline;
+}

@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    font-family: "Montserrat", sans-serif;
+    overflow-x: hidden;
+}
+
+.expenses-adder{
+    position: absolute;
+    top: 30px;
+    left: 320px;
+    width: calc(100% - 350px);
+    overflow: hidden;
+    transition: .2s ease-in-out;
+}
+.expenses-adder.active{
+    width: calc(100% - 100px);
+    left: 80px;
+}
+h1{
+    font-size: 24px;
+    font-weight: 700;
+    margin: 20px 0 20px 20px;
+    color: rgb(26, 81, 124);
+
+}
+.form{
+    margin-top: 20px;
+    padding: 20px 0;
+    width: 98%;
+    background-color: rgba(180, 158, 223, 0.636);
+    box-shadow: 3px 3px 5px rgba(35, 35, 35, 0.514);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(35, 35, 35, 0.514);
+    border-radius: 8px;
+}
+.input-group{
+    display: flex;
+    padding: 10px 20px;
+    align-items: center;
+}
+::placeholder{
+    font-size: 18px;
+    font-weight: 700;
+}
+label{
+    width: 300px;
+    font-size: 18px;
+    font-weight: 700;
+    font-size: 22px;
+    font-weight: 700;
+}
+textarea{
+    width: 70%;
+    border-radius: 6px;
+    border: 1px solid black;
+    font-size: 22px;
+    font-weight: 700;
+}
+input,select{
+    width: 70%;
+    padding: 15px 5px;
+    border-radius: 6px;
+    border: 1px solid black;
+    font-size: 22px;
+    font-weight: 700;
+    
+}
+button{
+    width: 100px;
+    margin: 20px 0 20px 20px;
+    padding: 10px;
+    background-color: rgb(85, 170, 236);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.history-holder{
+    background-color: rgba(180, 158, 223, 0.636);
+    width: 95%;
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 20px;
+}
+.expenses-title{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.category-title{
+    color: rgb(26, 81, 124);
+
+    font-size: 24px;
+    font-weight: 700;
+
+}
+h3{
+    font-size: 24px;
+    font-weight: 700;
+    margin-left: 20px;
+}
+.amount-shared{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.amount-shared p{
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 20px;
+}
+.date{
+    font-size: 16px;
+    font-weight: 700;
+    margin-left: 20px;
+}
+@media screen and (max-width: 576px){
+
+    .expenses-adder{
+        left: 220px;
+        width: calc(100% - 250px);
+    }
+    label{
+        width: 200px;
+        font-size: 14px;
+
+    }
+    select{
+        font-size: 18px;
+    }
+    .category-title{
+        color: rgb(26, 81, 124);
+        font-size: 16px;
+
+    
+    }
+    h3{
+        font-size: 16px;
+        font-weight: 700;
+        margin-left: 5px;
+    }
+    .date{
+        font-size: 12px;
+        font-weight: 700;
+        margin-left: 5px;
+    }
+}

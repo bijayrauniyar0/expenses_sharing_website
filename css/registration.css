@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    font-family: "Montserrat", sans-serif;
+    background-image: url(../images/bg.jpg);
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+/* form */
+#form{
+    border: 2px solid black;
+    width: 450px;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.133);
+    backdrop-filter: blur(6px);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 20px;
+}
+#form h2{
+    text-align: center;
+    color: rgb(0, 0, 0);
+    padding: 8px 0;
+    font-size: 2rem;
+}
+#form .horizental{
+    width:6vw;
+    height: 5px;
+    background-color: rgb(43, 116, 226);
+    position: absolute;
+    left: 38%;
+    margin-top: -8px;
+    border-radius: 50px;
+}
+#form .form-group{
+    display: flex;
+    flex-direction: row;
+    margin: 20px 20px;
+   
+ 
+}
+#name,#last-name,#pwd,#c-pwd,#date{
+    width: 40%;
+}
+#last-name,#c-pwd,#gnd{
+    margin-left: 20px;
+}
+#gnd{
+    width: 47%;
+    
+}
+#number,#email{
+    width:90%;
+}
+#name,#last-name,#c-pwd,#number,#pwd,#email,#gnd,#date{
+    border-radius: 100px;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    background-color: rgba(50, 67, 143, 0.618);
+    backdrop-filter: blur(1px);
+    color: rgba(255, 255, 255, 0.842);
+}
+::placeholder{
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+.form-group .trm{
+    font-size: 16px !important;
+    margin-left: 20px;
+    color: rgb(0, 0, 0) !important;
+}
+input[type="checkbox"]{
+    transform: scale(1.5);
+}
+input[type="checkbox"]{
+    transform: scale(1.5);
+}
+#sbt{
+    background-color: blue;
+    border-radius: 20px;
+    padding: 10px 22px;
+    color: white;
+    border: none;
+    position: relative;
+    left: 40%;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    transition: 0.2s ease-in-out;
+}
+#sbt:hover{
+    background-color: blueviolet;
+    cursor: pointer;
+}
