@@ -40,8 +40,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <title>Add Expenses</title>
 </head>
 <body>
-    <?php include 'partials/_aside.php'; ?>
-    <section id="expenses-adder" class="expenses-adder">
+    <?php 
+        $className = ".expenses-adder";
+        include 'partials/_aside.php'; 
+    ?>
+    
+    <section id="expenses-adder" class="expenses-adder active">
         <h1>Add Expenses</h1>
         <form action="add-expenses.php" class="form" method="POST">
             <div class="input-group">

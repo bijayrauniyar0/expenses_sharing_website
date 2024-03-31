@@ -123,8 +123,12 @@ h3{
 @media screen and (max-width: 576px){
 
     .expenses-adder{
+        filter: blur(5px);
         left: 220px;
         width: calc(100% - 250px);
+    }
+    .expenses-adder.active{
+        filter: none;
     }
     label{
         width: 200px;

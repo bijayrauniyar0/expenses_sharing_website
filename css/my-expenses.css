@@ -9,15 +9,21 @@ body{
     overflow-x: hidden;
 }
 
-#expenses-display{
+.expenses-display{
     position: absolute;
     top: 30px;
     left: 320px;
-    width: 75%;
+    width: calc(100% - 350px);
+    transition: .2s ease-in-out;
+}
+.expenses-display.active{
+    width: calc(100% - 100px);
+    left: 80px;
+
 }
 .history-holder{
     background-color: rgba(180, 158, 223, 0.636);
-    width: 90%;
+    width: 95%;
     border-radius: 8px;
     margin: 20px 0;
     padding: 20px;
@@ -25,6 +31,7 @@ body{
 .expenses-title{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 .category-title{
     color: rgb(26, 81, 124);
@@ -52,4 +59,31 @@ h3{
     font-size: 16px;
     font-weight: 700;
     margin-left: 20px;
+}
+@media screen and (max-width: 576px){
+
+    .expenses-display{
+        left: 210px;
+        width: calc(100% - 250px);
+        filter: blur(5px);
+    
+    }
+    .expenses-display.active{
+        filter: none;
+    }
+    .history-holder{
+        width: 90%;
+        overflow: hidden;
+    }
+
+    h3{
+        font-size: 16px;
+        font-weight: 700;
+        margin-left: 5px;
+    }
+    .date{
+        font-size: 12px;
+        font-weight: 700;
+        margin-left: 5px;
+    }
 }

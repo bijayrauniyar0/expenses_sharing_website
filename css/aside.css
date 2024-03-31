@@ -75,17 +75,23 @@ aside{
     padding: 20px 10px;
     margin: 0 0;
 }
-.side-menu .menu-group i{
+.side-menu .menu-group a i{
     font-size: 1.5rem;
     color: white;
 }
-.aside.close .side-menu .menu-group i{
+.aside.close .side-menu .menu-group a i{
     font-size: 1.8rem;
     margin-right: 20px;
 
 }
-.side-menu .menu-group h2 a{
+.side-menu .menu-group a{
     text-decoration: none;
+    display: flex;
+    align-items: center;
+ 
+}
+.side-menu .menu-group a h2{
+    
     font-size: 18px;
     color: white;
     margin: 0 15px;

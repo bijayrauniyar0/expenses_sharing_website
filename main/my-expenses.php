@@ -17,8 +17,12 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true){
     <title>Add Expenses</title>
 </head>
 <body>
-    <?php include 'partials/_aside.php'; ?>
-    <section id="expenses-display">
+    <?php 
+    $className = ".expenses-display";
+    include 'partials/_aside.php'; 
+    
+    ?>
+    <section id="expenses-display" class="expenses-display active">
         <div class="previously-added">
             <h1>My Expenses</h1>
             <?php
@@ -62,5 +66,6 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true){
             
         </div>
     </section>
+    <script src="../script/aside.js"></script>
 </body>
 </html>

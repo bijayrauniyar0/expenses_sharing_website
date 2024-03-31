@@ -1,0 +1,52 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: rgb(230, 213, 246);
+}
+.dashboard{
+    height: 100px;
+    width: calc(100% - 350px);
+    position: absolute;
+    left: 320px;
+
+    transition: .2s ease-in-out;
+}
+.dashboard.active{
+    width: calc(100% - 100px);
+    left: 80px;
+}
+.container-flexer{
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px 0;
+}
+.form-group label{
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.form-group input{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1.2em;
+}
+.form-group button{
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+}
