@@ -44,7 +44,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <link rel="stylesheet" href="../css/dashboard.css">
     <script src="https://kit.fontawesome.com/2f01e0402b.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
+    <style>
+        #update-btn{
+            background-color: #007bff;
+            color: white;
+            padding: 10px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
     <title>Document</title>
 </head>
 <body>
@@ -57,12 +65,26 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <div class="container-flexer">
             <div id="piechart"></div>
             <div class="monthly-budget">
-                <form action="#" method="post">
+                <form action="monthlybudget.php" method="post">
                     <div class="form-group">
                         <label for="monthly-budget">Monthly Budget</label>
                         <span id="adder">
-                            <input type="text" id="monthly-budget" name="monthly-budget" placeholder="Enter your monthly budget">
-                            <button type="submit" id="add-budget">Set</button>
+                            <?php
+                            $currentMonthYear = date('Y_m');
+                            $sql2 = "SELECT * FROM `monthly_budget_${currentMonthYear}` where email = '$_SESSION[email]'";
+                            $result2 = mysqli_query($conn, $sql2);
+                            $num2 = mysqli_num_rows($result2);
+                            if($num2== 1){
+                                $row_check = mysqli_fetch_assoc($result2);
+                                echo'
+                                <input type="text" name="monthly-budget" id="monthly-budget" value="'.$row_check['monthly_budget'].'" disabled>
+                                <span id="update-btn" onclick="changeBudget()">Update</span>';
+                            }else{
+                                echo'
+                                <input type="text" id="monthly-budget" name="monthly-budget" placeholder="Enter your monthly budget">
+                                <button type="submit" id="add-budget">Add Budget</button>';
+                            }
+                            ?>
                         </span>
                     </div>
                 </form>
@@ -73,7 +95,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     </section>
     <script src="../script/aside.js"></script>
     <?php 
-        $sql = "SELECT * FROM `expenses` where email = '$_SESSION[email]'";
+        $email = $_SESSION['email'];
+        $currentMonthYear = date('Y_m');
+        $sql = "SELECT * FROM `expenses_${email}_${currentMonthYear}`";
         $result = mysqli_query($conn, $sql);
         echo'
         <script type="text/javascript">
@@ -106,7 +130,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 winWidth = 850;
             }
         })
-          var options = {"title":"My Monthy Expenses(Rs)", "padding": 0,"width":winWidth, "height":500, "backgroundColor":"transparent" ,"legend":"left", is3D: true};
+          var options = {"title":"My '.date('F').' Expenses(Rs)", "padding": 0,"width":winWidth, "height":500, "backgroundColor":"transparent" ,"legend":"left", is3D: true};
         
           // Display the chart inside the <div> element with id="piechart"
           var chart = new google.visualization.PieChart(document.getElementById("piechart"));
@@ -114,6 +138,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
         </script>';
     ?>
-
+<script>
+    function changeBudget(){
+        console.log("hello")
+        document.getElementById('monthly-budget').disabled = false;
+        document.getElementById('monthly-budget').focus();
+        setTimeout(() => {
+           let newElement = document.createElement('button');
+           newElement.innerHTML = 'Save';
+           let spanBtn = document.getElementById('update-btn')
+           spanBtn.parentNode.replaceChild(newElement, spanBtn);
+        }, 100);
+    }
+</script>
 </body>
 </html>

@@ -16,6 +16,11 @@
 
     <div class="side-menu">
         <span class="menu-group">
+            <a href="dashboard.php">
+            <i class="fa-solid fa-gauge"></i>
+            <h2>Dashboard</h2></a>
+        </span>
+        <span class="menu-group">
             <a href="add-expenses.php">
                 <i class="fa-solid fa-wallet"></i>
                 <h2>Add Expenses </h2>
@@ -28,12 +33,7 @@
         </a>
         </span>
         <span class="menu-group">
-            <a href="dashboard.php">
-            <i class="fa-solid fa-gauge"></i>
-            <h2>Dashboard</h2></a>
-        </span>
-        <span class="menu-group">
-            <a href="">
+            <a href="savings.php">
             <i class="fa-solid fa-piggy-bank"></i>
             <h2>Savings</h2></a>
         </span>

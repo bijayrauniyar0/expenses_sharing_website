@@ -9,7 +9,6 @@
         aside.classList.toggle('close');
         if (aside.classList.contains('close')) {
             document.querySelector('.name').style.display = 'none';
-           
             document.querySelector(className).classList.add('active');
         } else {
             document.querySelector('.name').style.display = 'block';

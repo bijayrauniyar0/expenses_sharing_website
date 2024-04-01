@@ -6,7 +6,6 @@ body{
     background-color: rgb(230, 213, 246);
 }
 .dashboard{
-    height: 100px;
     width: calc(100% - 350px);
     position: absolute;
     left: 320px;

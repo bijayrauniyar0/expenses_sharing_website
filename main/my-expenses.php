@@ -26,7 +26,9 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true){
         <div class="previously-added">
             <h1>My Expenses</h1>
             <?php
-            $sql1 = "SELECT * FROM expenses WHERE email='{$_SESSION['email']}'";            
+            $currentMonthYear = date('Y_m');
+            $email = $_SESSION['email'];
+            $sql1 = "SELECT * FROM `expenses_${email}_${currentMonthYear}`";            
             $result1 = mysqli_query($conn, $sql1);
             $num1 = mysqli_num_rows($result1);
             if($num1 == 0){

@@ -14,7 +14,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $expense_shared_with = $_POST['expense-shared-with'];
     $expense_note = $_POST['expense-note'];
 
-    $sql = "INSERT INTO expenses ( `email` ,`expense_name`, `expense_amount`, `expense_date`, `expense_category`, `expense_shared_with`, `expense_note`) VALUES ('".$_SESSION['email']."','''$expense_name', '$expense_amount', '$expense_date', '$expense_category', '$expense_shared_with', '$expense_note')";
+    $currentMonthYear = date('Y_m');
+    $email = $_SESSION['email'];
+
+    $sqlCreate = "CREATE TABLE IF NOT EXISTS `expenses_${email}${currentMonthYear}` (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        email VARCHAR(255),
+        expense_name VARCHAR(255),
+        expense_amount DECIMAL(10, 2),
+        expense_date DATE,
+        expense_category VARCHAR(255),
+        expense_shared_with VARCHAR(255),
+        expense_note TEXT
+    )";
+
+    $resultCreate = mysqli_query($conn, $sqlCreate);
+
+    $sql = "INSERT INTO `expenses_${email}_${currentMonthYear}` ( `email` ,`expense_name`, `expense_amount`, `expense_date`, `expense_category`, `expense_shared_with`, `expense_note`) VALUES ('".$_SESSION['email']."','''$expense_name', '$expense_amount', '$expense_date', '$expense_category', '$expense_shared_with', '$expense_note')";
     $result = mysqli_query($conn, $sql);
     if($result){
         echo '
@@ -40,9 +56,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <title>Add Expenses</title>
 </head>
 <body>
-    <?php 
-        $className = ".expenses-adder";
-        include 'partials/_aside.php'; 
+<?php 
+    $className = ".expenses-adder";
+    include 'partials/_aside.php'; 
+    
     ?>
     
     <section id="expenses-adder" class="expenses-adder active">
@@ -83,7 +100,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <div class="previously-added">
             <h1>Previously Added</h1>
             <?php
-            $sql1 = "SELECT * FROM expenses WHERE email='{$_SESSION['email']}' ORDER BY created_at DESC LIMIT 3;";            
+            $email = $_SESSION['email'];
+            $currentMonthYear = date('Y_m');
+            $sql1 = "SELECT * FROM `expenses_${email}_${currentMonthYear}` ORDER BY created_at DESC LIMIT 3;";            
             $result1 = mysqli_query($conn, $sql1);
             $num1 = mysqli_num_rows($result1);
             if($num1 == 0){

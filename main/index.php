@@ -16,7 +16,7 @@
             if($password == $row['password']){
                 $_SESSION['loggedin'] = true;
                 $_SESSION['email'] = $email;
-                header("location: add-expenses.php");
+                header("location: dashboard.php");
             }else{
                 echo '
                 <script>

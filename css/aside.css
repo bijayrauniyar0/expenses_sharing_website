@@ -10,6 +10,7 @@ aside{
 }
 body{
     font-family: "Poppins", sans-serif;
+    background-color: rgb(230, 213, 246);
 }
 .aside.close{
     width: 60px;
