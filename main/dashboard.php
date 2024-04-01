@@ -5,6 +5,36 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
     header("location: index.php");
     exit;
 }
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $currentMonthYear = date('Y_m'); // Format: YYYY_MM
+    $sqlCreate = "CREATE TABLE IF NOT EXISTS `monthly_budget_${currentMonthYear}` (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        email VARCHAR(255) NOT NULL,
+        monthly_budget DECIMAL(10, 2) NOT NULL
+    )";
+    $resultCreate = mysqli_query($conn, $sqlCreate);
+    if($resultCreate){
+        echo'';
+    }else{
+        echo'<script>
+        alert("Error");
+        </script>';
+    }
+    
+    $monthly_budget = $_POST['monthly-budget'];
+    $sql = "INSERT INTO `monthly_budget_${currentMonthYear}` (`email`, `monthly_budget`) VALUES ('$_SESSION[email]', '$monthly_budget')";
+    $result = mysqli_query($conn, $sql);
+    if($result){
+        echo'<script>
+        alert("Addded Successfully");
+        </script>';
+    }else{
+        echo'<script>
+        alert("Error");
+        </script>';
+        
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,10 +53,11 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
     include 'partials/_aside.php'; 
     ?>
     <section class="dashboard active">
+        <h1 style="font-size: 2rem; padding: 20px 10px;">Your Dashboard</h1>
         <div class="container-flexer">
             <div id="piechart"></div>
             <div class="monthly-budget">
-                <form action="">
+                <form action="#" method="post">
                     <div class="form-group">
                         <label for="monthly-budget">Monthly Budget</label>
                         <span id="adder">
@@ -37,13 +68,16 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
                 </form>
             </div>
         </div>
+        <div class="container-flexer-2">
+        </div>
     </section>
     <script src="../script/aside.js"></script>
     <?php 
-    $sql = "SELECT * FROM `expenses` where email = '$_SESSION[email]'";
-    $result = mysqli_query($conn, $sql);
-    echo'
-    <script type="text/javascript">
+        $sql = "SELECT * FROM `expenses` where email = '$_SESSION[email]'";
+        $result = mysqli_query($conn, $sql);
+        echo'
+        <script type="text/javascript">
+    
         // Load google charts
         google.charts.load("current", {"packages":["corechart"]});
         google.charts.setOnLoadCallback(drawChart);
@@ -61,7 +95,18 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
         ]);
         
           // Optional; add a title and set the width and height of the chart
-          var options = {"title":"My Monthy Expenses(Rs)", "padding": 0,"width":850, "height":500, "backgroundColor":"transparent" ,"legend":"left", is3D: true};
+          let winWidth 
+          window.addEventListener("resize", function(event) {
+            if(document.body.clientWidth<992 && document.body.clientWidth>576){
+                winWidth = 300;
+            }else if(document.body.clientWidth<576){
+                winWidth = 200;
+            }
+            else{
+                winWidth = 850;
+            }
+        })
+          var options = {"title":"My Monthy Expenses(Rs)", "padding": 0,"width":winWidth, "height":500, "backgroundColor":"transparent" ,"legend":"left", is3D: true};
         
           // Display the chart inside the <div> element with id="piechart"
           var chart = new google.visualization.PieChart(document.getElementById("piechart"));
@@ -69,5 +114,6 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
         }
         </script>';
     ?>
+
 </body>
 </html>
