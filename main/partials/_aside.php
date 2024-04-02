@@ -38,9 +38,9 @@
             <h2>Savings</h2></a>
         </span>
         <span class="menu-group">
-            <a href="">
-            <i class="fa-solid fa-user-group"></i>
-            <h2>Shared Expenses</h2></a>
+            <a href="partials/_logout.php">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <h2>Log Out</h2></a>
         </span>
     </div>
 </aside>

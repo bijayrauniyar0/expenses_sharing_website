@@ -84,9 +84,9 @@
                         <input id="date" type="date" placeholder="Date of Birth" name="date" required>
                         <select name="gender" id="gnd">
                             <option value="">Select Gender</option>
-                            <option value="">Male</option>
-                            <option value="">Female</option>
-                            <option value="">Other</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -95,6 +95,9 @@
                     <button type="submit" id="sbt" class="action">Submit</button>
 
                 </form>
+                <div class="login">
+                    <p class="already-login">Already have an account? <a href="index.php">Login</a></p>
+                </div>
             </section>
         </main>
 </body>

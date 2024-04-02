@@ -45,13 +45,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <script src="https://kit.fontawesome.com/2f01e0402b.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <style>
-        #update-btn{
-            background-color: #007bff;
-            color: white;
-            padding: 10px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+        
     </style>
     <title>Document</title>
 </head>

@@ -11,7 +11,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $expense_amount = $_POST['expense-amount'];
     $expense_date = $_POST['expense-date'];
     $expense_category = $_POST['expense-category'];
-    $expense_shared_with = $_POST['expense-shared-with'];
     $expense_note = $_POST['expense-note'];
 
     $currentMonthYear = date('Y_m');
@@ -24,13 +23,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         expense_amount DECIMAL(10, 2),
         expense_date DATE,
         expense_category VARCHAR(255),
-        expense_shared_with VARCHAR(255),
         expense_note TEXT
     )";
 
     $resultCreate = mysqli_query($conn, $sqlCreate);
 
-    $sql = "INSERT INTO `expenses_${email}_${currentMonthYear}` ( `email` ,`expense_name`, `expense_amount`, `expense_date`, `expense_category`, `expense_shared_with`, `expense_note`) VALUES ('".$_SESSION['email']."','''$expense_name', '$expense_amount', '$expense_date', '$expense_category', '$expense_shared_with', '$expense_note')";
+    $sql = "INSERT INTO `expenses_${email}_${currentMonthYear}` ( `email` ,`expense_name`, `expense_amount`, `expense_date`, `expense_category`, `expense_note`) VALUES ('".$_SESSION['email']."','''$expense_name', '$expense_amount', '$expense_date', '$expense_category', '$expense_note')";
     $result = mysqli_query($conn, $sql);
     if($result){
         echo '
@@ -80,16 +78,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             <div class="input-group">
                 <label for="expense-category">Expense Category</label>
                 <select name="expense-category" id="expense-category" required>
-                    <option value="food">Food</option>
-                    <option value="rent">Rent</option>
-                    <option value="transport">Transport</option>
-                    <option value="entertainment">Entertainment</option>
-                    <option value="others">Others</option>
+                    <option value="Food">Food</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Others">Others</option>
                 </select>
-            </div>
-            <div class="input-group">
-                <label for="expense-shared-with">Shared With</label>
-                <input type="text" name="expense-shared-with" id="expense-shared-with">
             </div>
             <div class="input-group">
                 <label for="expense-note">Note</label>
@@ -121,8 +115,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         <div class="history">
                             <div class="history-item">
                                 <span class="amount-shared">
-                                    <p>Rs. '.$row['expense_amount'].'&nbsp;&nbsp;|</p>
-                                    <p>Shared with: '.$row['expense_shared_with'].'</p>
+                                    <p>Rs. '.$row['expense_amount'].'</p>
                                 </span>
                             </div>
                         </div>

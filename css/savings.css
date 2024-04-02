@@ -2,11 +2,15 @@
     padding: 0;
     margin: 0;
 }
+body{
+    overflow-x: hidden;
+}
 .savings{
     position: absolute;
     width: calc(100% - 350px);
     left: 320px;
     transition: .2s ease-in-out; 
+    z-index: -1;
 
 }
 .savings.active{
@@ -25,8 +29,7 @@
     width: 200px;
     height: 80px;
     border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.607);
-    backdrop-filter: blur(10px);
+    background-color: rgb(255, 255, 255);
     /* border: 1px solid black; */
     display: flex;
     justify-content: center;
@@ -39,12 +42,47 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    transition: .2s ease-in-out;
 
 }
 .chart-container{
     margin: 20px 30px;
     border-radius: 10px;
     overflow: hidden;
-    background-color: red;
     width: 600px;
+}
+.details-holder h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 5px 0;
+}
+.savings-heading{
+    padding: 20px 30px; 
+    font-size: 2rem;
+}
+@media screen and (max-width: 576px){
+    .savings{
+        width: calc(100% - 200px);
+        left: 180px;
+        filter: blur(10px);
+    }
+    .savings.active{
+        width: calc(100% - 100px);
+        left: 80px;
+        filter: none;
+        overflow: hidden;
+    }
+    .details-holder h2{
+        font-size: 1.2rem;
+    }
+    .top-cards{
+        margin: 10px 15px;
+        padding: 5px 8px;
+        box-shadow: 1px 1px 2px black;
+    }
+    .savings-heading{
+        padding: 10px 15px; 
+        font-size: 1.5rem;
+    }
+    
 }

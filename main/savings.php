@@ -16,7 +16,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
     <script src="https://kit.fontawesome.com/2f01e0402b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/savings.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <title>Add Expenses</title>
+    <title>Savings</title>
 </head>
 
 <body>
@@ -26,39 +26,67 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
 
     ?>
     <section id="savings" class="savings active">
-        <h1 style="padding: 20px 30px; font-size: 2rem;">My Savings</h1>
+        <h1 class="savings-heading">
+        Savings & Expenses for 
+        <?php
+        $currentMonth = date("F");
+        echo $currentMonth;
+        ?>
+    </h1>
         <div class="top-cards-container">
+            <?php
+            $email = $_SESSION["email"];
+            $currentMonthYear = date("Y_m");
+            $sql6 = "SELECT * FROM `expenses_${email}_${currentMonthYear}` ";
+            $result6 = mysqli_query($conn, $sql6);
+            $sql7 = "SELECT * FROM `monthly_budget_${currentMonthYear}` WHERE email = '$_SESSION[email]'";
+            $result7 = mysqli_query($conn, $sql7);
+            $row7 = mysqli_fetch_assoc($result7);
+            echo'
             <div class="top-cards">
                 <div class="details-holder">
                     <h2>Monthly Budget</h2>
                     <span class="budget">
-                        Rs 10000
+                        <i class="fas fa-rupee-sign"></i>
+                        <span class="budget-amount">' . $row7['monthly_budget'] . '</span>
                     </span>
                 </div>
-            </div>
+            </div>';
+            $totalExpenses = 0;
+            while ($row6 = mysqli_fetch_assoc($result6)) {
+                $totalExpenses = $totalExpenses + $row6['expense_amount'];
+            }
+            echo'
             <div class="top-cards">
                 <div class="details-holder">
-                    <h2>Monthly Budget</h2>
+                    <h2>Total Expenses</h2>
+
                     <span class="budget">
-                        Rs 10000
+                        <i class="fas fa-rupee-sign"></i>
+                        <span class="budget-amount">' . $totalExpenses. '</span>
                     </span>
                 </div>
-            </div>
+            </div>';
+            $savings = $row7['monthly_budget'] - $totalExpenses;
+            echo'
             <div class="top-cards">
                 <div class="details-holder">
-                    <h2>Monthly Budget</h2>
+                    <h2>Total Expenses</h2>
+
                     <span class="budget">
-                        Rs 10000
+                        <i class="fas fa-rupee-sign"></i>
+                        <span class="budget-amount">' .$savings. '</span>
                     </span>
                 </div>
-            </div>
+            </div>';
+            ?>
         </div>
         <div class="charts-main-container">
             <div class="chart-container">
-                <div id="chart_div"></div>
+                <div id="chart_div1"></div>
             </div>
             <div class="chart-container">
-                <div id="chart_div1"></div>
+                <div id="chart_div"></div>
             </div>
         </div>
     </section>
@@ -79,7 +107,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
         function drawBackgroundColor() {
             var data = new google.visualization.DataTable();
             data.addColumn("date", "Date");
-            data.addColumn("number", "Expenses Till Date");
+            data.addColumn("number", "Expenses");
             data.addRows([';
             $previousAmount = 0;
 
@@ -95,6 +123,17 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
 
             $currentMonth = date("F");
             echo'
+            var winWidth 
+                window.addEventListener("resize", function(event) {
+                if(document.body.clientWidth<992 && document.body.clientWidth>576){
+                    winWidth = 300;
+                }else if(document.body.clientWidth<576){
+                    winWidth = 200;
+                }
+                else{
+                    winWidth = 850;
+                }
+            })
             var options = {
                 title: "Expenses For '.$currentMonth.'",
                 hAxis: {
@@ -107,19 +146,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                         max: 10000 // maximum value on y-axis
                     }
                 },
-                backgroundColor: "#f1f8e9",
-                dataLabels: {
-                    textStyle: {
-                        color: "#333" // color of the data labels
-                    },
-                    alignment: "right", // position of the data labels
-                    display: "inside", // display the data labels inside the bars
-                    format: "currency" // format of the data labels (you can customize as needed)
-                }
+                width: winWidth,
+                height: 300,
+                backgroundColor: "#fff",
+                color: "#333" // color of the data labels
             };
     
             var chart = new google.visualization.LineChart(document.getElementById("chart_div1"));
-            chart.draw(data, Object.assign(options, { height: 400, width: 600 }));
+            chart.draw(data,options);
     }
         
     </script>';
@@ -129,63 +163,76 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
     
         $email = $_SESSION["email"];
         $currentMonthYear = date("Y_m");
-        $sql3 = "SELECT * FROM `expenses_${email}_${currentMonthYear}`";
-        $result3 = mysqli_query($conn, $sql3);
+       
+        $sql5 = "SELECT * FROM `monthly_budget_${currentMonthYear}` where email = '$email'";
+        $result5 = mysqli_query($conn, $sql5);
+        $row5 = mysqli_fetch_assoc($result5);
+echo '
+<script>
+google.charts.load("current", {packages: ["corechart", "line"]});
+google.charts.setOnLoadCallback(drawBackgroundColor);
 
-        echo'
-        <script>
-        google.charts.load("current", {packages: ["corechart", "line"]});
-        google.charts.setOnLoadCallback(drawBackgroundColor);
+function drawBackgroundColor() {
+    var data = new google.visualization.DataTable();
+    data.addColumn("date", "Date");
+    data.addColumn("number", "Savings");
+    data.addRows([';
+
+$initialSavings = $row5['monthly_budget']; // Initial savings
+$savings = $initialSavings;
+$sql4 = "SELECT * FROM `expenses_${email}_${currentMonthYear}`";
+$result4 = mysqli_query($conn, $sql4);
+
+while ($row4 = mysqli_fetch_assoc($result4)) {
+    // Assuming $row3['expense_date'] is in 'Y-m-d' format
+    $date = date_create_from_format('Y-m-d', $row4['expense_date']);
+    $formatted_date = $date->format('Y, n-1, j');
     
-        function drawBackgroundColor() {
-            var data = new google.visualization.DataTable();
-            data.addColumn("date", "Date");
-            data.addColumn("number", "Expenses Till Date");
-            data.addRows([';
-            $previousAmount = 0;
-
-            while ($row3 = mysqli_fetch_assoc($result3)) {
-                // Assuming $row3['expense_date'] is in 'Y-m-d' format
-                $date = date_create_from_format('Y-m-d', $row3['expense_date']);
-                $formatted_date = $date->format('Y, n-1, j');
-                // 'n-1' is used to convert month to monthIndex
-                $previousAmount = $previousAmount + $row3['expense_amount'];
-                echo "[new Date(" . $formatted_date . "), " . $previousAmount . "],";
-            }
-            echo ']);';
-
-            $currentMonth = date("F");
-            echo'
-            var options = {
-                title: "Expenses For '.$currentMonth.'",
-                hAxis: {
-                    title: "Date"
-                },
-                vAxis: {
-                    title: "Amount",
-                    viewWindow: {
-                        min: 0, // minimum value on y-axis
-                        max: 10000 // maximum value on y-axis
-                    }
-                },
-                backgroundColor: "#f1f8e9",
-                dataLabels: {
-                    textStyle: {
-                        color: "#333" // color of the data labels
-                    },
-                    alignment: "right", // position of the data labels
-                    display: "inside", // display the data labels inside the bars
-                    format: "currency" // format of the data labels (you can customize as needed)
-                }
-            };
+    // Decrease savings by expense amount
+    $savings -= $row4['expense_amount'];
     
-            var chart = new google.visualization.LineChart(document.getElementById("chart_div"));
-            chart.draw(data, Object.assign(options, { height: 400, width: 600 }));
+    echo "[new Date(" . $formatted_date . "), " . $savings . "],";
+}
+$currentMonth = date("F");
+
+echo '
+    ]);
+    var winWidth 
+        window.addEventListener("resize", function(event) {
+          if(document.body.clientWidth<992 && document.body.clientWidth>576){
+              winWidth = 300;
+          }else if(document.body.clientWidth<576){
+              winWidth = 200;
+          }
+          else{
+              winWidth = 850;
+          }
+      })
+        var options = {
+            title: " Savings for '.$currentMonth.'",
+            hAxis: {
+                title: "Date"
+            },
+            vAxis: {
+                title: "Savings",
+                viewWindow: {
+                    min: 0, // minimum value on y-axis
+                    max: ' . $initialSavings . ' // maximum value on y-axis
+                },
+            
+            },
+            width: winWidth,
+            height: 300,
+            backgroundColor: "#fff",
+            colors: ["red"]
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById("chart_div"));
+        chart.draw(data, options);
     }
-        
     </script>';
-    
     ?>
+
 </body>
 
 </html>

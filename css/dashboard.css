@@ -4,6 +4,7 @@
 }
 body{
     background-color: rgb(230, 213, 246);
+    overflow-x: hidden;
 }
 .dashboard{
     width: calc(100% - 350px);
@@ -62,30 +63,17 @@ form{
     font-weight: 600;
     cursor: pointer;
 }
-.container-flexer-2{
-    display: flex;
-    /* align-items: center; */
-    padding: 20px;
-    flex-wrap: wrap;
-}
-.top-contributors{
-    padding: 20px;
-    margin: 20px 30px;
-    width: 300px;
-    background-color: white;
-    border-radius: 7px;
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-}
-#piechart-friends{
-    width: 700px;
-    overflow: hidden;
-    height: 500px;
+#update-btn{
+    background-color: #007bff;
+    color: white;
+    padding: 10px 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 @media screen and (max-width: 576px){
     .dashboard{
         filter: blur(5px);
+        overflow: hidden;
     }
     .dashboard.active{
         filter: none;
@@ -101,6 +89,10 @@ form{
         height: 350px;
     }
     .form-group button{
+        padding: 5px 5px;
+        font-size: 12px;
+    }
+    #update-btn{
         padding: 5px 5px;
         font-size: 12px;
     }
