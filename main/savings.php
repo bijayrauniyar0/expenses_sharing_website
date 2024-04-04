@@ -16,7 +16,19 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
     <script src="https://kit.fontawesome.com/2f01e0402b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/savings.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
     <title>Savings</title>
+    <style>
+        #download-btn {
+            padding: 10px;
+            background-color: #f1356d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,6 +45,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
         echo $currentMonth;
         ?>
     </h1>
+    <button id="download-btn" onclick="downloadPDF()">Download</button>
         <div class="top-cards-container">
             <?php
             $email = $_SESSION["email"];
@@ -71,7 +84,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
             echo'
             <div class="top-cards">
                 <div class="details-holder">
-                    <h2>Total Expenses</h2>
+                    <h2>Savings</h2>
 
                     <span class="budget">
                         <i class="fas fa-rupee-sign"></i>
@@ -232,7 +245,13 @@ echo '
     }
     </script>';
     ?>
-
+    
+    <script>
+       function downloadPDF() {
+       window.print();
+        
+}
+    </script>
 </body>
 
 </html>

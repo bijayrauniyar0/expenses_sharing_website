@@ -49,6 +49,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                 $transportation = 0;
                 $entertainment = 0;
                 $others = 0;
+                $totalAmt = 0 ;
                 echo'<div class="expenses-cards-container">';
                 while ($row = mysqli_fetch_assoc($result1)) {
                     if($row['expense_category'] == 'Food'){
@@ -64,7 +65,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                         $entertainment += $row['expense_amount'];
                     }else{
                         $others += $row['expense_amount'];
-                    }   
+                    }
+                    $totalAmt += $row['expense_amount'];
+
                     
                 }
                 $categories = ['Food', 'Rent', 'Transportation', 'Entertainment', 'Others'];
@@ -77,6 +80,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                     </div>
                     ';
                 }
+                echo '
+                    <div class="expenses-card">
+                        <h2>Total Expenses</h2>
+                        <p>Rs '.$totalAmt.'</p>
+                    </div>
+                    ';
 
             echo '</div>';
             }
