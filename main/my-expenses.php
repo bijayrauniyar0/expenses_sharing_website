@@ -38,57 +38,65 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
             $email = $_SESSION['email'];
             $sql1 = "SELECT * FROM `expenses_${email}_${currentMonthYear}`";
             $result1 = mysqli_query($conn, $sql1);
-            $num1 = mysqli_num_rows($result1);
-            if ($num1 == 0) {
+            if(!$result1){
                 echo '
                 <h2>No expenses added yet</h2>
                 ';
-            } else {
-                $food = 0;
-                $rent = 0;
-                $transportation = 0;
-                $entertainment = 0;
-                $others = 0;
-                $totalAmt = 0 ;
-                echo'<div class="expenses-cards-container">';
-                while ($row = mysqli_fetch_assoc($result1)) {
-                    if($row['expense_category'] == 'Food'){
-                        $food += $row['expense_amount'];
-                    }
-                    elseif($row['expense_category'] == 'Rent'){
-                        $rent += $row['expense_amount'];
-                    }
-                    elseif($row['expense_category'] == 'Transportation'){
-                        $transportation += $row['expense_amount'];
-                    }
-                    elseif($row['expense_category'] == 'Entertainment'){
-                        $entertainment += $row['expense_amount'];
-                    }else{
-                        $others += $row['expense_amount'];
-                    }
-                    $totalAmt += $row['expense_amount'];
-
-                    
-                }
-                $categories = ['Food', 'Rent', 'Transportation', 'Entertainment', 'Others'];
-                $amounts = [$food, $rent, $transportation, $entertainment, $others];
-                for($i = 0; $i < 5; $i++){
+            }else{
+                
+                $num1 = mysqli_num_rows($result1);
+                if ($num1 == 0) {
                     echo '
-                    <div class="expenses-card">
-                        <h2>'.$categories[$i].'</h2>
-                        <p>Rs '.$amounts[$i].'</p>
-                    </div>
+                    <h2>No expenses added yet</h2>
                     ';
+                } else {
+                    $food = 0;
+                    $rent = 0;
+                    $transportation = 0;
+                    $entertainment = 0;
+                    $others = 0;
+                    $totalAmt = 0 ;
+                    echo'<div class="expenses-cards-container">';
+                    while ($row = mysqli_fetch_assoc($result1)) {
+                        if($row['expense_category'] == 'Food'){
+                            $food += $row['expense_amount'];
+                        }
+                        elseif($row['expense_category'] == 'Rent'){
+                            $rent += $row['expense_amount'];
+                        }
+                        elseif($row['expense_category'] == 'Transportation'){
+                            $transportation += $row['expense_amount'];
+                        }
+                        elseif($row['expense_category'] == 'Entertainment'){
+                            $entertainment += $row['expense_amount'];
+                        }else{
+                            $others += $row['expense_amount'];
+                        }
+                        $totalAmt += $row['expense_amount'];
+    
+                        
+                    }
+                    $categories = ['Food', 'Rent', 'Transportation', 'Entertainment', 'Others'];
+                    $amounts = [$food, $rent, $transportation, $entertainment, $others];
+                    for($i = 0; $i < 5; $i++){
+                        echo '
+                        <div class="expenses-card">
+                            <h2>'.$categories[$i].'</h2>
+                            <p>Rs '.$amounts[$i].'</p>
+                        </div>
+                        ';
+                    }
+                    echo '
+                        <div class="expenses-card">
+                            <h2>Total Expenses</h2>
+                            <p>Rs '.$totalAmt.'</p>
+                        </div>
+                        ';
+    
+                echo '</div>';
                 }
-                echo '
-                    <div class="expenses-card">
-                        <h2>Total Expenses</h2>
-                        <p>Rs '.$totalAmt.'</p>
-                    </div>
-                    ';
-
-            echo '</div>';
             }
+           
 echo"
         </div>
         <div id='chart-container'>

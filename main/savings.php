@@ -54,17 +54,19 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
             $result6 = mysqli_query($conn, $sql6);
             $sql7 = "SELECT * FROM `monthly_budget_${currentMonthYear}` WHERE email = '$_SESSION[email]'";
             $result7 = mysqli_query($conn, $sql7);
-            $row7 = mysqli_fetch_assoc($result7);
-            echo'
-            <div class="top-cards">
-                <div class="details-holder">
-                    <h2>Monthly Budget</h2>
-                    <span class="budget">
-                        <i class="fas fa-rupee-sign"></i>
-                        <span class="budget-amount">' . $row7['monthly_budget'] . '</span>
-                    </span>
-                </div>
-            </div>';
+            if(mysqli_num_rows($result7)){
+                $row7 = mysqli_fetch_assoc($result7);
+
+                echo'
+                <div class="top-cards">
+                    <div class="details-holder">
+                        <h2>Monthly Budget</h2>
+                        <span class="budget">
+                            <i class="fas fa-rupee-sign"></i>
+                            <span class="budget-amount">' . $row7['monthly_budget'] . '</span>
+                        </span>
+                    </div>
+                </div>';
             $totalExpenses = 0;
             while ($row6 = mysqli_fetch_assoc($result6)) {
                 $totalExpenses = $totalExpenses + $row6['expense_amount'];
@@ -92,6 +94,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                     </span>
                 </div>
             </div>';
+            }else{
+                echo'<h2>Please add expenses</h2>';
+            }
             ?>
         </div>
         <div class="charts-main-container">
@@ -123,6 +128,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
             data.addColumn("number", "Expenses");
             data.addRows([';
             $previousAmount = 0;
+            if(mysqli_num_rows($result3)){
+
+            
 
             while ($row3 = mysqli_fetch_assoc($result3)) {
                 // Assuming $row3['expense_date'] is in 'Y-m-d' format
@@ -170,6 +178,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
     }
         
     </script>';
+}
     
     ?>
     <?php 

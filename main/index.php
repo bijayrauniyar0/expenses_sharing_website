@@ -16,6 +16,30 @@
             if($password == $row['password']){
                 $_SESSION['loggedin'] = true;
                 $_SESSION['email'] = $email;
+                $sql1 = "";
+                $currentMonthYear = date('Y_m'); // Format: YYYY_MM
+                $sqlBudgetCreate = "CREATE TABLE IF NOT EXISTS `monthly_budget_${currentMonthYear}` (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    email VARCHAR(255) NOT NULL,
+                    monthly_budget DECIMAL(10, 2) NOT NULL
+                )";
+                $resultMonthCreate = mysqli_query($conn, $sqlBudgetCreate);
+
+
+                $sqlExpensesCreate = "CREATE TABLE IF NOT EXISTS `expenses_${email}_${currentMonthYear}` (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    email VARCHAR(255),
+                    expense_name VARCHAR(255),
+                    expense_amount DECIMAL(10, 2),
+                    expense_date DATE,
+                    expense_category VARCHAR(255),
+                    expense_note TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )";
+            
+                $resultExpenseCreate = mysqli_query($conn, $sqlExpensesCreate);
+
+                
                 header("location: dashboard.php");
             }else{
                 echo '
@@ -40,7 +64,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/index.css">
     <script src="https://kit.fontawesome.com/2f01e0402b.js" crossorigin="anonymous"></script>
-    <title>Responsive Menu</title>
+    <title>ETS</title>
 </head>
 <body>
         <main>

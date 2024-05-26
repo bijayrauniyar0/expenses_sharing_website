@@ -47,7 +47,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <style>
         
     </style>
-    <title>Document</title>
+    <title>Dashboard</title>
 </head>
 <body>
     <?php 
@@ -104,10 +104,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         function drawChart() {
           var data = google.visualization.arrayToDataTable([
           ["Task", "Hours per Day"], ';
-          while($row = mysqli_fetch_assoc($result)){
+          $num = mysqli_num_rows($result);
+          if($num == 0){
             echo'
-              ["'.$row['expense_category'].'", '.$row['expense_amount'].'],';
+              ["No Expenses", 100]';
+          }else{
+
+            while($row = mysqli_fetch_assoc($result)){
+            echo'
+                ["'.$row['expense_category'].'", '.$row['expense_amount'].'],';
             }
+          }
         echo'
           
         ]);

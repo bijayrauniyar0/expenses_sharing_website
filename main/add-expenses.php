@@ -16,21 +16,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $currentMonthYear = date('Y_m');
     $email = $_SESSION['email'];
 
-    $sqlCreate = "CREATE TABLE IF NOT EXISTS `expenses_${email}${currentMonthYear}` (
+    $sqlCreate = "CREATE TABLE IF NOT EXISTS `expenses_${email}_${currentMonthYear}` (
         id INT AUTO_INCREMENT PRIMARY KEY,
         email VARCHAR(255),
         expense_name VARCHAR(255),
         expense_amount DECIMAL(10, 2),
         expense_date DATE,
         expense_category VARCHAR(255),
-        expense_note TEXT
+        expense_note TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
 
     $resultCreate = mysqli_query($conn, $sqlCreate);
 
-    $sql = "INSERT INTO `expenses_${email}_${currentMonthYear}` ( `email` ,`expense_name`, `expense_amount`, `expense_date`, `expense_category`, `expense_note`) VALUES ('".$_SESSION['email']."','''$expense_name', '$expense_amount', '$expense_date', '$expense_category', '$expense_note')";
-    $result = mysqli_query($conn, $sql);
-    if($result){
+    $sqlInsert = "INSERT INTO `expenses_${email}_${currentMonthYear}` ( `email` ,`expense_name`, `expense_amount`, `expense_date`, `expense_category`, `expense_note`, `created_at`) VALUES ('".$_SESSION['email']."','$expense_name', '$expense_amount', '$expense_date', '$expense_category', '$expense_note', 'CURRENT_TIMESTAMP')";
+    $resultInsert = mysqli_query($conn, $sqlInsert);
+    if($resultInsert){
         echo '
         <script>
             alert("Expense added successfully");
@@ -96,31 +97,39 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             <?php
             $email = $_SESSION['email'];
             $currentMonthYear = date('Y_m');
-            $sql1 = "SELECT * FROM `expenses_${email}_${currentMonthYear}` ORDER BY created_at DESC LIMIT 3;";            
-            $result1 = mysqli_query($conn, $sql1);
-            $num1 = mysqli_num_rows($result1);
-            if($num1 == 0){
+            $sqlFetch = "SELECT * FROM `expenses_${email}_${currentMonthYear}` ORDER BY created_at DESC LIMIT 3";            
+            $resultFetch = mysqli_query($conn, $sqlFetch);
+            if(!$resultFetch){
                 echo '
-                <h2>No expenses added yet</h2>
-                ';
+                <h2>No expenses added yet</h2>';
+            }
+            else{
+                $numFetch = mysqli_num_rows($resultFetch);
+
+           
+            if($numFetch == 0){
+                echo '
+                <h2>No expenses added yet</h2>';
             }else{
-                while($row = mysqli_fetch_assoc($result1)){
-                    echo'
-                    <div class="history-holder">
-                        <span class="expenses-title">
-                            <h2 class="category-title">'.$row['expense_category'].'</h2>
-                            <h3>|&nbsp;&nbsp;'.$row['expense_name'].'</h3>
-                            <p class="date">'.$row['expense_date'].'</p>
-                        </span>
-                        <div class="history">
-                            <div class="history-item">
-                                <span class="amount-shared">
-                                    <p>Rs. '.$row['expense_amount'].'</p>
-                                </span>
+
+                    while($row = mysqli_fetch_assoc($resultFetch)){
+                        echo'
+                        <div class="history-holder">
+                            <span class="expenses-title">
+                                <h2 class="category-title">'.$row['expense_category'].'</h2>
+                                <h3>|&nbsp;&nbsp;'.$row['expense_name'].'</h3>
+                                <p class="date">'.$row['expense_date'].'</p>
+                            </span>
+                            <div class="history">
+                                <div class="history-item">
+                                    <span class="amount-shared">
+                                        <p>Rs. '.$row['expense_amount'].'</p>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    ';
+                        ';
+                    }
                 }
             }
             ?>
